@@ -1,0 +1,27 @@
+In VS code created a folder Docker_Demo
+Inside this folder create 2 files-index.html & Dockerfile
+Dockerfile Explanation:
+FROM instruction initializes a new build stage and sets the base image
+COPY instruction copies files or directories (usually the source code) from the source to the specified location inside the image. It copies the file to the "/usr/share/nginx/html" directory, which is the default location for serving static files in the Nginx web server.
+CMD instruction is to provide defaults for executing containers.
+
+Docker Build Command in CLI
+docker build -t sampleWebapp:v1 .
+The above cmd initiates the Docker build process to create a Docker image based on the instructions specified in the Dockerfile located in the current directory (.)
+The -t flag specifies a tag for the image, allowing you to assign a name and version to it.
+
+-f or -file: This option can be used to specify a different Dockerfile name or location if it is not named "Dockerfile."
+Eg:docker build -f Prod_Dockerfile
+--quiet or -q: The --quiet option suppresses the build output, displaying only the final image ID after the image has been built successfully. 
+Eg:docker build --quiet .
+
+After build cmd, to verify successful build ---- docker images.
+Next run the docker using following cmd
+
+docker run -p 8080:80 sampleWebapp:v1
+
+The above command tells Docker to run the sampleWebapp container. The -p flag specifies the port mapping, which maps a port from the host machine to a port inside the container. Here, you are mapping port 8080 of the host machine to port 80 of the container. You can modify the host port as per your preference. Ensure you specify the image name and version you used when building the image.
+
+To access the application, open web browser and type localhost:8080
+
+Error Faced: "Unable to find the Dockerfile": Ensure that you are running the docker build command from the directory containing the Dockerfile.Check spelling of the Dockerfile also
